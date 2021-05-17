@@ -7,6 +7,8 @@
 
 	function navi() {
 		
+		alert('test_1');
+		
 		Kakao.Navi.start({
 			name: '대전광역시 서구 둔산2동 1306',
 		    x: 36.355238,
