@@ -18,4 +18,10 @@
 		})
   	}
 
+  	// 탭 선택
+	$('#naviTab a').click(function (e) {
+	  e.preventDefault()
+	  $(this).tab('show')
+	})  	
+
 			

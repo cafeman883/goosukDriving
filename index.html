@@ -12,18 +12,25 @@
 <body>
 	<!--<div id="map" style="width:500px;height:400px;"></div>-->
 
-	<ul class="nav nav-tabs nav-justified">
+	<ul class="nav nav-tabs nav-justified" id="naviTab">
 	  	<li role="presentation" class="active">
-			<a id="navi" href="#" onclick="navi();">
+			<a id="navi" href="#kakaoNavi" onclick="navi();">
 				<img src="https://developers.kakao.com/assets/img/about/buttons/navi/kakaonavi_btn_medium.png" />
+				카카오
 			</a>
 	  	</li>
-	  	<li role="presentation"><a href="#">Profile</a></li>
-		<li role="presentation"><a href="#">Messages</a></li>
+	  	<li role="presentation"><a href="#ABCNavi">T맵</a></li>
+		<li role="presentation"><a href="#DEFNavi">아리랑</a></li>
 	</ul>
 
-	<a>hi</a>
-	<a>hi2</a>
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="kakaoNavi">
+			
+		</div>
+		<div role="tabpanel" class="tab-pane" id="ABCNavi">...</div>
+		<div role="tabpanel" class="tab-pane" id="DEFNavi">...</div>
+	</div>
 
 
 
