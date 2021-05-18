@@ -10,35 +10,35 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">	
 </head>
 <body>
-	<!--<div id="map" style="width:500px;height:400px;"></div>-->
+	
 
 	<ul class="nav nav-tabs nav-justified" id="naviTab">
 	  	<li role="presentation" class="active">
-			<a id="navi" href="#kakaoNavi" onclick="navi();">
+			<a id="navi" href="#search" onclick="navi();">
 				<!-- <img src="https://developers.kakao.com/assets/img/about/buttons/navi/kakaonavi_btn_medium.png" /> -->
-				카카오
+				장소검색
 			</a>
 	  	</li>
-	  	<li role="presentation"><a href="#ABCNavi">T맵</a></li>
-		<li role="presentation"><a href="#DEFNavi">아리랑</a></li>
+	  	<li role="presentation"><a href="#myNavi">나의 경로</a></li>
+		<li role="presentation"><a href="#DEFNavi">몰랑</a></li>
 	</ul>
 
 	<!-- Tab panes -->
 	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="kakaoNavi">
-			내용표시1
+		<div role="tabpanel" class="tab-pane active" id="search">
+			<div id="map" style="width:500px;height:400px;"></div>
 		</div>
-		<div role="tabpanel" class="tab-pane" id="ABCNavi">내용표시2</div>
+		<div role="tabpanel" class="tab-pane" id="myNavi">내용표시2</div>
 		<div role="tabpanel" class="tab-pane" id="DEFNavi">내용표시3</div>
 	</div>
 
 
 
-
-	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다."></script> -->
 	<script type="text/javascript" src="myscript.js"></script>
 
 </body>
