@@ -8,29 +8,74 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<!-- 부가적인 테마 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">	
+
+	<!-- 
+		[지도 검색]
+		  [지도]
+		[출발]
+		[경유1]
+		[경유2]
+		[경유3]
+		[목적지]
+
+		[라디오버튼 이륜차 OR 승용차]
+
+
+		[공유링크 생성]
+
+	-->
 </head>
 <body>
-	
-
-	<ul class="nav nav-tabs nav-justified" id="naviTab">
-	  	<li role="presentation" class="active">
-			<a id="navi" href="#search" onclick="navi();">
-				<!-- <img src="https://developers.kakao.com/assets/img/about/buttons/navi/kakaonavi_btn_medium.png" /> -->
-				장소검색
-			</a>
-	  	</li>
-	  	<li role="presentation"><a href="#myNavi">나의 경로</a></li>
-		<li role="presentation"><a href="#DEFNavi">몰랑</a></li>
-	</ul>
 
 	<!-- Tab panes -->
-	<div class="tab-content">
-		<div role="tabpanel" class="tab-pane active" id="search">
-			<div id="map" style="width:500px;height:400px;"></div>
-		</div>
-		<div role="tabpanel" class="tab-pane" id="myNavi">내용표시2</div>
-		<div role="tabpanel" class="tab-pane" id="DEFNavi">내용표시3</div>
+	<div class="page-header">
+		<h1>Example page header <small>Subtext for header</small></h1>
 	</div>
+
+	<a id="navi" href="#" onclick="navi(srno);">
+		<!-- <img src="https://developers.kakao.com/assets/img/about/buttons/navi/kakaonavi_btn_medium.png" /> -->
+		테스트 버튼
+	</a>
+	<br />
+	<a id="navi2" href="#" onclick="getParameters('srno')">
+		테스트 버튼2
+	</a>
+	<br />
+	<a id="navi3" href="#" onclick="makeUrl()">
+		테스트 버튼3
+	</a>		
+	<br />
+	<div class="col-lg-6">
+		<div class="input-group">
+			<div class="input-group">
+			  	<span class="input-group-addon" id="sizing-addon2"> 경로1 </span>
+			  	<input type="text" class="form-control" placeholder="주소입력" aria-describedby="sizing-addon2" name="layover" value="경로1value">
+			</div>
+			<div class="input-group">
+			  	<span class="input-group-addon" id="sizing-addon2"> 경로2 </span>
+			  	<input type="text" class="form-control" placeholder="주소입력" aria-describedby="sizing-addon2" name="layover" value="경로2value">
+			</div>
+			<div class="input-group">
+			  	<span class="input-group-addon" id="sizing-addon2"> 경로3 </span>
+			  	<input type="text" class="form-control" placeholder="주소입력" aria-describedby="sizing-addon2" name="layover" value="경로3value">
+			</div>
+			<div class="input-group">
+			  	<span class="input-group-addon" id="sizing-addon2"> 목적지</span>
+			  	<input type="text" class="form-control" placeholder="주소입력" aria-describedby="sizing-addon2" name="goal">
+			</div>			
+		</div>
+		<div class="input-group">
+	    	<span class="input-group-addon">
+	        	<input type="radio" aria-label="이륜차" name="carRadio" value="7" checked>
+	        	이륜차
+	      	</span>
+			<span class="input-group-addon">
+	        	<input type="radio" aria-label="승용차" name="carRadio" value="1">
+	        	승용차
+	      	</span>      
+	    </div>		
+	</div>
+
 
 
 
@@ -38,9 +83,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=LIBRARY"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=services"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=services,clusterer,drawing"></script>
+	<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=LIBRARY"></script> -->
+	<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=services"></script> -->
+	<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=services,clusterer,drawing"></script> -->
 	<script type="text/javascript" src="myscript.js"></script>
 
 </body>
