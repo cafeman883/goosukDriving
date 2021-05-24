@@ -3,6 +3,11 @@ var srno = '#';
 
 let goal = {};
 let layover = new Array(3);
+const layoverTmp = {
+	name: '경유지명',
+    x: 127.381874,  
+    y: 36.355238
+}
 
 // vehicleType: 1(1종), 7(이륜차)
 // viaPoints	Object[]	경유지 정보, 최대 3개
@@ -30,14 +35,26 @@ var getCarRadio = function() {
 
 
 var makeUrl = function() {
-	var layover_1 = document.getElementsByName("layover")[0].value;
-	var layover_2 = document.getElementsByName("layover")[1].value;
-	var layover_3 = document.getElementsByName("layover")[2].value;
+	var layover = new Array();
+	var layoverObj = new Array();
+
+	layover[0] = document.getElementsByName("layover")[0].value;
+	layover[1] = document.getElementsByName("layover")[1].value;
+	layover[2] = document.getElementsByName("layover")[2].value;
+	
+
+	layoverObj[0] = JSON.parse(layover[0].replaceAll("'",'"'));
+	layoverObj[1] = JSON.parse(layover[1].replaceAll("'",'"'));
+	layoverObj[2] = JSON.parse(layover[2].replaceAll("'",'"'));	
+
+	layoverTmp.viaPoints = layoverObj;
+
+	console.log(layoverTmp);
 
 
-	console.log(layover_1);
-	console.log(layover_2);
-	console.log(layover_3);
+
+
+
 
 	if (getCarRadio() == 1) {
 		console.log('승용차');
