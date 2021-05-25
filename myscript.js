@@ -83,13 +83,22 @@ var getParameters = function (paramName) {
 	} 
 };
 
-
+//---------------------카카오------------------------------------------
 
 // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 Kakao.init('e43dc8045745f2062fbc14ca37ae1297');
 
 // SDK 초기화 여부를 판단합니다.
 console.log('kakao 초기화 여부:' + Kakao.isInitialized());
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption); 
 
 function navi() {
 	// Kakao.Navi.start({

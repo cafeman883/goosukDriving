@@ -40,6 +40,9 @@
 				</a>				
 			</div>	
 		</div>
+		<div class="container is-fullhd">
+			<div id="map" style="width:100%;height:350px;"></div>
+		</div>
 	</div>	
 	<div class="box">		
 		<div class="container is-fullhd">
@@ -50,43 +53,44 @@
 			        		<input class="input is-hovered" type="text" placeholder="첫번째 경유지" name="layover" value="{'name':'경로1입니다.', 'x':111.111111, 'y':22.222222}">
 						    <span class="icon is-small is-left">
 						    	<i class="fas fa-subway"></i>
-						    </span>			        		
+						    </span>			    	
 			      		</p>		      		
 			    	</div>
 			  	</div>
 			</div>
 			<div class="field is-horizontal">
-				<div class="field-label is-normal">
-			    	<label class="label">경로2</label>
-			  	</div>
 			  	<div class="field-body">
 			    	<div class="field">
-			      		<p class="control">
+			      		<p class="control has-icons-left">
 			        		<input class="input is-hovered" type="text" placeholder="두번째 경유지" name="layover" value="{'name':'경로2입니다.', 'x':111.111111, 'y':22.222222}">
+						    <span class="icon is-small is-left">
+						    	<i class="fas fa-subway"></i>
+						    </span>		
+
 			      		</p>
 			    	</div>
 			  	</div>
 			</div>
 			<div class="field is-horizontal">
-				<div class="field-label is-normal">
-			    	<label class="label">경로3</label>
-			  	</div>
 			  	<div class="field-body">
 			    	<div class="field">
-			      		<p class="control">
+			      		<p class="control has-icons-left">
 			        		<input class="input is-hovered" type="text" placeholder="세번째 경유지" name="layover" value="{'name':'경로3입니다.', 'x':111.111111, 'y':22.222222}">
+						    <span class="icon is-small is-left">
+						    	<i class="fas fa-subway"></i>
+						    </span>					        		
 			      		</p>
 			    	</div>
 			  	</div>
 			</div>
 			<div class="field is-horizontal">
-				<div class="field-label is-normal">
-			    	<label class="label">목적지</label>
-			  	</div>
 			  	<div class="field-body">
 			    	<div class="field">
-			      		<p class="control">
+			      		<p class="control has-icons-left">
 			        		<input class="input is-focused" type="text" placeholder="목적지 주소" name="goal" value="{'name':'목적지', 'x':555.111111, 'y':66.222222}">
+						    <span class="icon is-small is-left">
+						    	<i class="fas fa-subway"></i>
+						    </span>					        		
 			      		</p>
 			    	</div>
 			  	</div>
@@ -112,7 +116,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=LIBRARY"></script> -->
+	 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=LIBRARY"></script> 
 	<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=services"></script> -->
 	<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=services,clusterer,drawing"></script> -->
 	<script src = "https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
