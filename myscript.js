@@ -1,98 +1,59 @@
 //--------------------------------------------------
 var srno = '#';
 
-let goal = {};
-let layover = new Array(3);
-const layoverTmp = {
-	name: '경유지명',
-    x: 127.381874,  
-    y: 36.355238
-}
-
-// vehicleType: 1(1종), 7(이륜차)
-// viaPoints	Object[]	경유지 정보, 최대 3개
-// viaPoints: [{name:'-', x:127.381874, y:36.355238}]
-
+let goalObj = {};
+let layoverObj = new Array(3);
 
 //--------------------------------------------------
 function routeInit() {
-	goal = {
+	goalObj = {
 		name: '-',
 	    x: 127.381874,  
 	    y: 36.355238,
 	    coordType: 'wgs84',
-	    vehicleType : 7
+	    vehicleType : 7,
+	    viaPoints: [{name:'-', x:127.381874, y:36.355238}]
 	};
 
-	layover = [];  // 배열에 빈 배열을 할당해서 초기화
+	layoverObj = [];  // 배열에 빈 배열을 할당해서 초기화
 };
 
 var getCarRadio = function() {
 	var value = document.querySelector('input[name="carRadio"]:checked').value;
 
-	return value;
+	return value * 1; // 숫자를 리턴하기 위해
 };
 
 
 var makeUrl = function() {
-	var layover = new Array();
-	var layoverObj = new Array();
+	let layover = new Array();
+	let tmp;
+	let i=0;
+	let cnt=0;
+	let tmpObj = {};
 
-	layover[0] = document.getElementsByName("layover")[0].value;
-	layover[1] = document.getElementsByName("layover")[1].value;
-	layover[2] = document.getElementsByName("layover")[2].value;
-	
+	routeInit();
 
-	layoverObj[0] = JSON.parse(layover[0].replaceAll("'",'"'));
-	layoverObj[1] = JSON.parse(layover[1].replaceAll("'",'"'));
-	layoverObj[2] = JSON.parse(layover[2].replaceAll("'",'"'));	
+	// 목적지
+	tmp = document.getElementsByName("goal")[0].value;
+	tmpObj = JSON.parse(tmp.replaceAll("'",'"'));
 
-	layoverTmp.viaPoints = layoverObj;
-
-	console.log(layoverTmp);
-
-
-
-
-
-
-	if (getCarRadio() == 1) {
-		console.log('승용차');
+	// 경유지
+	cnt = document.getElementsByName("layover").length;
+	for(i = 0; i < cnt; i++) {
+		layover[i] = document.getElementsByName("layover")[i].value
+		layoverObj[i] = JSON.parse(layover[i].replaceAll("'",'"'));
 	}
-	else if (getCarRadio() == 7) {
-		console.log('바이크');
-	}
+
+	goalObj.name        = tmpObj.name;
+	goalObj.x           = tmpObj.x;
+	goalObj.y           = tmpObj.y;
+	goalObj.vehicleType = getCarRadio();
+	goalObj.viaPoints   = layoverObj;
+
+	console.log(goalObj);
+
 }
-
-
-
-
-// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-Kakao.init('e43dc8045745f2062fbc14ca37ae1297');
-
-// SDK 초기화 여부를 판단합니다.
-console.log('kakao 초기화 여부:' + Kakao.isInitialized());
-
-function navi(srno) {
-
-	console.log(srno);
-
-	switch (srno) {
-		case 'A00001':
-			Kakao.Navi.start({
-				name: '대전광역시 서구 둔산2동 1306',
-			    x: 127.381874,  
-			    y: 36.355238,
-			    coordType: 'wgs84',
-			    viaPoints: [{name:'한밭초등학교', x:127.394269, y:36.353841}]
-			})			
-			break;
-		case 'A00002':
-			break;
-	}
-};
-
-
 
 var getParameters = function (paramName) { 
 	// 리턴값을 위한 변수 선언 
@@ -121,6 +82,33 @@ var getParameters = function (paramName) {
 		} 
 	} 
 };
+
+
+
+// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+Kakao.init('e43dc8045745f2062fbc14ca37ae1297');
+
+// SDK 초기화 여부를 판단합니다.
+console.log('kakao 초기화 여부:' + Kakao.isInitialized());
+
+function navi() {
+	// Kakao.Navi.start({
+	// 	name: '대전광역시 서구 둔산2동 1306',
+	//     x: 127.381874,  
+	//     y: 36.355238,
+	//     coordType: 'wgs84',
+	//     viaPoints: [{name:'한밭초등학교', x:127.394269, y:36.353841}]
+	// });
+	makeUrl();
+
+	console.log(goalObj);
+
+	Kakao.Navi.start(goalObj);	
+	
+};
+
+
+
 
 
 			
