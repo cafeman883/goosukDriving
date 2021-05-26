@@ -21,7 +21,7 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="" id="keyword" size="15"> 
+                    키워드 : <input type="text" value="파만장" id="keyword" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -43,10 +43,18 @@
 			</a>
 			<a class="button is-warning is-light" id="navi3" href="#" onclick="makeUrl()">
 				테스트 버튼3
-			</a>				
+			</a>	
+			<label class="radio">
+		    	<input type="radio" name="carRadio" value="7" checked>
+		    	이륜차
+		  	</label>
+		  	<label class="radio">
+		    	<input type="radio" name="carRadio" value="1">
+		    	승용차
+		  	</label>	
 		</div>	
-	</div>
 	
+	</div>
 </div>	
 <div class="box">		
 	<div class="container is-fullhd">
@@ -100,19 +108,120 @@
 		  	</div>
 		</div>	
 	</div>    		
-</div>
-<div class="box">	
-	<div class="control">
-		<label class="radio">
-	    	<input type="radio" name="carRadio" value="7" checked>
-	    	이륜차
-	  	</label>
-	  	<label class="radio">
-	    	<input type="radio" name="carRadio" value="1">
-	    	승용차
-	  	</label>
-	</div>		
-</div>
+</div>	
+<section class="section is-hidden-mobile">
+	<div class="container" id="cardContainer">
+		<div class="card">
+			<div class="card-image">
+				<figure class="image is-4by3">
+					<img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+				</figure>
+			</div>
+			<div class="card-content">
+				<div class="media">
+					<div class="media-left">
+						<figure class="image is-48x48">
+							<img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+						</figure>
+					</div>
+					<div class="media-content">
+						<p class="title is-4">John Smith</p>
+						<p class="subtitle is-6">@johnsmith</p>
+					</div>
+				</div>
+
+				<div class="content">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+					<a href="#">#css</a> <a href="#">#responsive</a>
+					<br>
+					<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-image">
+				<figure class="image is-4by3">
+					<img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+				</figure>
+			</div>
+			<div class="card-content">
+				<div class="media">
+					<div class="media-left">
+						<figure class="image is-48x48">
+							<img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+						</figure>
+					</div>
+					<div class="media-content">
+						<p class="title is-4">John Smith</p>
+						<p class="subtitle is-6">@johnsmith</p>
+					</div>
+				</div>
+
+				<div class="content">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+					<a href="#">#css</a> <a href="#">#responsive</a>
+					<br>
+					<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-image">
+				<figure class="image is-4by3">
+					<img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+				</figure>
+			</div>
+			<div class="card-content">
+				<div class="media">
+					<div class="media-left">
+						<figure class="image is-48x48">
+							<img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+						</figure>
+					</div>
+					<div class="media-content">
+						<p class="title is-4">John Smith</p>
+						<p class="subtitle is-6">@johnsmith</p>
+					</div>
+				</div>
+
+				<div class="content">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+					<a href="#">#css</a> <a href="#">#responsive</a>
+					<br>
+					<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-image">
+				<figure class="image is-4by3">
+					<img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+				</figure>
+			</div>
+			<div class="card-content">
+				<div class="media">
+					<div class="media-left">
+						<figure class="image is-48x48">
+							<img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+						</figure>
+					</div>
+					<div class="media-content">
+						<p class="title is-4">John Smith</p>
+						<p class="subtitle is-6">@johnsmith</p>
+					</div>
+				</div>
+
+				<div class="content">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+					<a href="#">#css</a> <a href="#">#responsive</a>
+					<br>
+					<time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=services"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

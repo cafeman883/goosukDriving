@@ -7,12 +7,12 @@ let layoverObj = new Array(3);
 //--------------------------------------------------
 function routeInit() {
 	goalObj = {
-		name: '-',
-	    x: 127.381874,  
-	    y: 36.355238,
+		name: '파만장',
+	    x: 126.78204526122205,  
+	    y: 37.793763470235774,
 	    coordType: 'wgs84',
 	    vehicleType : 7,
-	    viaPoints: [{name:'-', x:127.381874, y:36.355238}]
+	    viaPoints: [{name:'-', x:126.78204526122205, y:37.793763470235774}]
 	};
 
 	layoverObj = [];  // 배열에 빈 배열을 할당해서 초기화
@@ -96,7 +96,7 @@ var markers = [];
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(37.793763470235774, 126.78204526122205), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
 
@@ -382,6 +382,8 @@ function displayCenterInfo(result, status) {
                 infoDiv.innerHTML = result[i].address_name;
                 break;
             }
+
+            console.log(result[i].region_type);
         }
     }    
 }
