@@ -118,7 +118,7 @@ function searchPlaces() {
     var keyword = document.getElementById('keyword').value;
 
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
+        //alert('키워드를 입력해주세요!');
         return false;
     }
 
@@ -341,9 +341,9 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
             
             var content = '<div class="bAddr">' +
-                            '<span class="title">법정동 주소정보</span>' + 
-                            detailAddr + 
-                        '</div>';
+                          '    <span class="title">'+ detailAddr +'</span>' + 
+                          '<a class="button is-info is-light" href="#">경로1</a> '
+                          '</div>';
 
             // 마커를 클릭한 위치에 표시합니다 
             marker.setPosition(mouseEvent.latLng);
