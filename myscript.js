@@ -1,3 +1,7 @@
+//-----------------파일쓰기-------------------------
+
+
+
 //--------------------------------------------------
 var srno = '#';
 
@@ -82,6 +86,47 @@ var getParameters = function (paramName) {
 		} 
 	} 
 };
+
+
+var selectBtn = function (whichBtn, tmpObj) {
+
+    let layover = new Array();
+    let goal = new Array();
+
+
+    //tmpObj.name        = '';
+    //tmpObj.x           = '';
+    //tmpObj.y           = '';
+    //tmpObj.vehicleType = getCarRadio();
+    //goalObj.viaPoints   = layoverObj;
+
+
+    layover = document.getElementsByName("layover");
+    goal = document.getElementsByName("goal");
+
+    console.log('test : '+ tmpObj);
+
+    if(whichBtn == 'lg') {
+
+    }else if(whichBtn == 'l1') {
+
+    }else if(whichBtn == 'l2') {
+
+    }else if(whichBtn == 'l3') {
+
+    }else {
+        //
+    }
+}
+
+
+var addrCopy = function () {
+  let textarea = document.getElementById("addr");
+  textarea.select();
+  document.execCommand("copy");
+}
+
+
 
 //---------------------카카오 지도표시-------------------------------------
 
@@ -318,10 +363,8 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
     message += '경도는 ' + latlng.getLng() + ' 입니다';
     
-	
-
-    console.log(mouseEvent);
-    
+    // latlng.getLng() : 126.xxxx
+    // latlng.getLat() : 37.xxxx    
 });
 
 // 주소-좌표 변환 객체를 생성합니다
@@ -334,19 +377,49 @@ var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입
 searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
 // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {      
+    searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {        
         if (status === kakao.maps.services.Status.OK) {
-            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+
+            let myaddr = '';
+            // 구조체를 버튼에 담아서 보내자
+            let latlng = mouseEvent.latLng;
+            let clickX = latlng.getLng();
+            let clickY = latlng.getLat();            
+
+            let tmp = '';            
+            let tmpObj = {};
+
+
+            myaddr = result[0].address.address_name;
+            tmpObj = {
+                name: myaddr,
+                x: clickX,  
+                y: clickY,
+                coordType: 'wgs84',
+                vehicleType : getCarRadio()
+            };
+            tmp = '"' + JSON.stringify(tmpObj) + '"';
+
+                            console.log(tmp)    ;
+            //var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+            //detailAddr += '<div>지번 주소  : ' + result[0].address.address_name + '</div>';
+            var detailAddr = '<div class="control">' +  
+                             //'<input class="input is-hovered" type="text" value="'+myaddr+'" id="addr">' +
+                             '<textarea id="addr" class="textarea has-fixed-size" rows="3">'+myaddr+'</textarea>'+
+                             '<br /><a class="button is-info is-light" onclick="addrCopy()">주소 복사</a>' +
+                             '</div>';
             
             var content = '<div class="bAddr">' +
                           '    <span class="title">'+ detailAddr +'</span>' + 
-                          '<a class="button is-info is-light" href="#">경로1</a> '
+                          '    <a class="button is-info is-light" href="#" onclick="selectBtn(' + "'" + 'l1' + "'" + ', ' + tmp + ')">경로1</a> ' +
+                          '    <a class="button is-info is-light" href="#" onclick="selectBtn(' + "'" + 'l2' + "'" + ', ' + tmp + ')">경로2</a> ' +
+                          '    <a class="button is-info is-light" href="#" onclick="selectBtn(' + "'" + 'l3' + "'" + ', ' + tmp + ')">경로3</a> ' +
+                          '    <a class="button is-info is-light" href="#" onclick="selectBtn(' + "'" + 'lg' + "'" + ', ' + tmp + ')">목적지</a>' +                         
                           '</div>';
 
             // 마커를 클릭한 위치에 표시합니다 
-            marker.setPosition(mouseEvent.latLng);
+            marker.setPosition(latlng);
             marker.setMap(map);
 
             // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
@@ -387,11 +460,6 @@ function displayCenterInfo(result, status) {
         }
     }    
 }
-
-
-
-
-
 
 
 function navi() {
