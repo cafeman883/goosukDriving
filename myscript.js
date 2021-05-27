@@ -55,7 +55,7 @@ var makeUrl = function() {
 	goalObj.vehicleType = getCarRadio();
 	goalObj.viaPoints   = layoverObj;
 
-	console.log(goalObj);
+	//console.log(goalObj);
 
 }
 
@@ -90,21 +90,30 @@ var getParameters = function (paramName) {
 
 var selectBtn = function (whichBtn, tmpObj) {
 
-    let layover = new Array();
-    let goal = new Array();
+    let layover = {};
+    let goal = {};
+    let tmp = '';
+    let tmpObject = {};
 
+    console.log('test : ' + typeof tmpObj);
 
+    /*
+    tmp = JSON.stringify(tmpObj);
+    tmpObject = JSON.parse(tmp);
+    console.log(JSON.stringify({ x: 5, y: 6 }));
+    console.log(JSON.stringify({name: 경기_파주시_월롱면_위전리_659-52,x:126.78322059284794,y:37.79368229988303,coordType: wgs84,vehicleType : 7}));
+    */
+   // tmp = JSON.stringify(tmpObj.replaceAll("@", "'"));
+    //tmpObject = JSON.parse(tmp.replaceAll('"', ''));
+    //tmpObject = JSON.parse(tmp);
+    
+    
     //tmpObj.name        = '';
     //tmpObj.x           = '';
     //tmpObj.y           = '';
     //tmpObj.vehicleType = getCarRadio();
     //goalObj.viaPoints   = layoverObj;
-
-
-    layover = document.getElementsByName("layover");
-    goal = document.getElementsByName("goal");
-
-    console.log('test : '+ tmpObj);
+   
 
     if(whichBtn == 'lg') {
 
@@ -392,16 +401,30 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
 
             myaddr = result[0].address.address_name;
+            // @를 작은따옴표(')로 나중에 치환할거임
+            // 주소의 띄어쓰기를 _로 치환해서 보내고, 나중에 바꿀거임.
+            /*
+            tmpObj = "{"              +
+                "name: @"+ myaddr.replaceAll(" ", "_") + "@," +
+                "x:"   + clickX + "," +	
+                "y:"   + clickY + "," + 
+                "coordType: @wgs84@,"   +
+                "vehicleType : " + getCarRadio() + "}";
+			
+            tmp = "'" + tmpObj + "'";
+            */
             tmpObj = {
                 name: myaddr,
-                x: clickX,  
-                y: clickY,
+                x: clickX , 	
+                y: clickY ,  
                 coordType: 'wgs84',
-                vehicleType : getCarRadio()
+                vehicleType: getCarRadio()
             };
-            tmp = '"' + JSON.stringify(tmpObj) + '"';
 
-                            console.log(tmp)    ;
+            tmp = JSON.stringify(tmpObj);
+
+            console.log(typeof tmp);
+
             //var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
             //detailAddr += '<div>지번 주소  : ' + result[0].address.address_name + '</div>';
             var detailAddr = '<div class="control">' +  
@@ -410,13 +433,13 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
                              '<br /><a class="button is-info is-light" onclick="addrCopy()">주소 복사</a>' +
                              '</div>';
             
-            var content = '<div class="bAddr">' +
-                          '    <span class="title">'+ detailAddr +'</span>' + 
-                          '    <a class="button is-info is-light" href="#" onclick="selectBtn(' + "'" + 'l1' + "'" + ', ' + tmp + ')">경로1</a> ' +
-                          '    <a class="button is-info is-light" href="#" onclick="selectBtn(' + "'" + 'l2' + "'" + ', ' + tmp + ')">경로2</a> ' +
-                          '    <a class="button is-info is-light" href="#" onclick="selectBtn(' + "'" + 'l3' + "'" + ', ' + tmp + ')">경로3</a> ' +
-                          '    <a class="button is-info is-light" href="#" onclick="selectBtn(' + "'" + 'lg' + "'" + ', ' + tmp + ')">목적지</a>' +                         
-                          '</div>';
+            var content = "<div class='bAddr'>" +
+                          "    <span class='title'>"+ detailAddr +'</span>' + 
+                          "    <a class='button is-info is-light' href='#' onclick='selectBtn(" + '"' + "l1" + '"' + ", " + tmp + ")'>경로1</a> " +
+                          "    <a class='button is-info is-light' href='#' onclick='selectBtn(" + '"' + "l2" + '"' + ", " + tmp + ")'>경로2</a> " +
+                          "    <a class='button is-info is-light' href='#' onclick='selectBtn(" + '"' + "l3" + '"' + ", " + tmp + ")'>경로3</a> " +
+                          "    <a class='button is-info is-light' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +                         
+                          "</div>";
 
             // 마커를 클릭한 위치에 표시합니다 
             marker.setPosition(latlng);
@@ -456,7 +479,7 @@ function displayCenterInfo(result, status) {
                 break;
             }
 
-            console.log(result[i].region_type);
+           // console.log(result[i].region_type);
         }
     }    
 }
