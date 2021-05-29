@@ -226,23 +226,47 @@ function displayPlaces(places) {
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function(marker, title) {
+        
+
+	    // 구조체를 버튼에 담아서 보내자
+	    //let latlng = mouseEvent.latLng;
+	    let clickX = places[i].x;
+	    let clickY = places[i].y;            
+
+	    let tmp = '';            
+	    let tmpObj = {};
+
+	    tmpObj = {
+	        name: places[i].address_name,
+	        x: places[i].x , 	
+	        y: places[i].y ,  
+	        coordType: 'wgs84',
+	        vehicleType: getCarRadio()
+	    };
+	    tmp = JSON.stringify(tmpObj);
+
+        (function(marker, tmp) {
+        //(function(marker, title) {
+        	
+
+
             kakao.maps.event.addListener(marker, 'mouseover', function() {
-                displayInfowindow(marker, title);
+                displayInfowindow(marker, tmp);
             });
 
             kakao.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
+                //infowindow.close();
             });
 
             itemEl.onmouseover =  function () {
-                displayInfowindow(marker, title);
+                displayInfowindow(marker, tmp);
             };
 
             itemEl.onmouseout =  function () {
-                infowindow.close();
+                //infowindow.close();
             };
-        })(marker, places[i].place_name);
+        //})(marker, places[i].place_name);
+    	})(marker, tmp);
 
         fragment.appendChild(itemEl);
     }
@@ -258,7 +282,32 @@ function displayPlaces(places) {
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, places) {
 
-    var el = document.createElement('li'),
+    var el = document.createElement('li');
+
+    //console.log(places);
+    
+    let myaddr = '';
+    // 구조체를 버튼에 담아서 보내자
+    //let latlng = mouseEvent.latLng;
+    let clickX = places.x;
+    let clickY = places.y;            
+
+    let tmp = '';            
+    let tmpObj = {};
+
+
+    myaddr = places.address_name;
+    tmpObj = {
+        name: places.address_name,
+        x: places.x , 	
+        y: places.y ,  
+        coordType: 'wgs84',
+        vehicleType: getCarRadio()
+    };
+    tmp = JSON.stringify(tmpObj);
+
+
+
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                 '<div class="info">' +
                 '   <h5>' + places.place_name + '</h5>';
@@ -270,8 +319,11 @@ function getListItem(index, places) {
         itemStr += '    <span>' +  places.address_name  + '</span>'; 
     }
                  
-      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-                '</div>';           
+    itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+               "  <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "l1" + '"' + ", " + tmp + ")'>경로 추가</a>" +
+               "  <a class='button is-info is-success' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +
+               '</div>';
+
 
     el.innerHTML = itemStr;
     el.className = 'item';
@@ -341,8 +393,26 @@ function displayPagination(pagination) {
 
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다
-function displayInfowindow(marker, title) {
-    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+function displayInfowindow(marker, tmp) {
+	var tmpObj = JSON.parse(tmp);
+
+	/*
+    var content = '<div style="padding:5px;z-index:1;">' + tmpObj.name + 
+    			  "  <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "l1" + '"' + ", " + tmp + ")'>경로 추가</a>" +
+                  "  <a class='button is-info is-success' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +
+    			  '</div>';
+	*/
+
+    var detailAddr = '<div class="control">' +  
+                     '<textarea id="addr" class="textarea has-fixed-size" rows="3">'+tmpObj.name+'</textarea>'+
+                     '<br /><a class="button is-info is-light" onclick="addrCopy()">주소 복사</a>' +
+                     '</div>';
+    
+    var content = "<div class='bAddr'>" +
+                  "    <span class='title'>"+ detailAddr +'</span>' + 
+                  "    <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "l1" + '"' + ", " + tmp + ")'>경로 추가</a> " +
+                  "    <a class='button is-info is-success' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +                         
+                  "</div>";    			  
 
     infowindow.setContent(content);
     infowindow.open(map, marker);
@@ -413,10 +483,8 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             
             var content = "<div class='bAddr'>" +
                           "    <span class='title'>"+ detailAddr +'</span>' + 
-                          "    <a class='button is-info is-light' href='#' onclick='selectBtn(" + '"' + "l1" + '"' + ", " + tmp + ")'>경로1</a> " +
-                          "    <a class='button is-info is-light' href='#' onclick='selectBtn(" + '"' + "l2" + '"' + ", " + tmp + ")'>경로2</a> " +
-                          "    <a class='button is-info is-light' href='#' onclick='selectBtn(" + '"' + "l3" + '"' + ", " + tmp + ")'>경로3</a> " +
-                          "    <a class='button is-info is-light' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +                         
+                          "    <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "l1" + '"' + ", " + tmp + ")'>경로 추가</a> " +
+                          "    <a class='button is-info is-success' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +                         
                           "</div>";
 
             // 마커를 클릭한 위치에 표시합니다 

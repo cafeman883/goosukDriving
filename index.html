@@ -66,53 +66,27 @@
 </div>	
 <div class="box">		
 	<div class="container is-fullhd">
-		<div class="field is-horizontal">	
-		  	<div class="field-body">	
-				<div class="field is-horizontal">
-				    <span class="tag is-danger is-large">
-				    	삭제
-				    	<button class="delete is-large" onclick="layoverDel(this)"></button>
-				    </span>
-			    </div>
-        		<input class="input is-hovered" type="text" placeholder="첫번째 경유지" name="layover" value="{'name':'경로1입니다.', 'x':111.111111, 'y':22.222222}">
-		  	</div>
+		<div class="columns">
+			<div class="column is-1">
+			    <span class="tag is-info is-large">
+			    	경로1
+			    	<button class="delete is-large" onclick="layoverDel(this)"></button>
+			    </span>
+		    </div>
+		    <div class="column">
+    			<input class="input is-hovered" type="text" placeholder="첫번째 경유지" name="layover" value="{'name':'경로1입니다.', 'x':111.111111, 'y':22.222222}">
+    		</div>
 		</div>
-		<div class="field is-horizontal">
-		  	<div class="field-body">
-		    	<div class="field">
-		      		<p class="control has-icons-left">
-		        		<input class="input is-hovered" type="text" placeholder="두번째 경유지" name="layover" value="{'name':'경로2입니다.', 'x':111.111111, 'y':22.222222}">
-					    <span class="icon is-small is-left">
-					    	<i class="fas fa-subway"></i>
-					    </span>		
-
-		      		</p>
-		    	</div>
-		  	</div>
-		</div>
-		<div class="field is-horizontal">
-		  	<div class="field-body">
-		    	<div class="field">
-		      		<p class="control has-icons-left">
-		        		<input class="input is-hovered" type="text" placeholder="세번째 경유지" name="layover" value="{'name':'경로3입니다.', 'x':111.111111, 'y':22.222222}">
-					    <span class="icon is-small is-left">
-					    	<i class="fas fa-subway"></i>
-					    </span>					        		
-		      		</p>
-		    	</div>
-		  	</div>
-		</div>
-		<div class="field is-horizontal">
-		  	<div class="field-body">
-		    	<div class="field">
-		      		<p class="control has-icons-left">
-		        		<input class="input is-focused" type="text" placeholder="목적지 주소" name="goal" value="{'name':'목적지', 'x':555.111111, 'y':66.222222}">
-					    <span class="icon is-small is-left">
-					    	<i class="fas fa-subway"></i>
-					    </span>					        		
-		      		</p>
-		    	</div>
-		  	</div>
+		<div class="columns">
+	    	<div class="column is-1">	        		
+			    <span class="tag is-success is-large">
+			    	목적지			    		 
+			    	<!-- <button class="button success is-midium" onclick="">목적지</button> -->
+			    </span>					        		 
+	    	</div>
+	    	<div class="column">
+	    		<input class="input is-focused" type="text" placeholder="목적지 주소" name="goal" value="{'name':'목적지', 'x':555.111111, 'y':66.222222}">
+	    	</div>
 		</div>	
 	</div>    		
 </div>	
