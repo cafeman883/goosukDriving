@@ -65,27 +65,28 @@
 	</div>
 </div>	
 <div class="box">		
-	<div class="container is-fullhd">
-		<div class="columns">
+	<div class="container is-fullhd" id="routeList">
+		<!-- 
+		<div class="columns" >
 			<div class="column is-1">
 			    <span class="tag is-info is-large">
-			    	경로1
-			    	<button class="delete is-large" onclick="layoverDel(this)"></button>
+			    	경유지			    	
 			    </span>
 		    </div>
 		    <div class="column">
-    			<input class="input is-hovered" type="text" placeholder="첫번째 경유지" name="layover" value="{'name':'경로1입니다.', 'x':111.111111, 'y':22.222222}">
+    			<input class="input is-hovered" type="text" placeholder="첫번째 경유지" name="layover" value="{'name':'경로1입니다.', 'x':111.111111, 'y':22.222222}">		
     		</div>
 		</div>
+		 -->
 		<div class="columns">
 	    	<div class="column is-1">	        		
 			    <span class="tag is-success is-large">
 			    	목적지			    		 
-			    	<!-- <button class="button success is-midium" onclick="">목적지</button> -->
 			    </span>					        		 
 	    	</div>
 	    	<div class="column">
-	    		<input class="input is-focused" type="text" placeholder="목적지 주소" name="goal" value="{'name':'목적지', 'x':555.111111, 'y':66.222222}">
+	    		<input class="input is-focused" id="goal" type="text" placeholder="목적지 주소" value="">
+				<input type="hidden" id="goalHid" value="{'name':'목적지', 'x':555.111111, 'y':66.222222}">	    		
 	    	</div>
 		</div>	
 	</div>    		

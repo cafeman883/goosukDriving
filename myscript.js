@@ -39,23 +39,30 @@ var makeUrl = function() {
 	routeInit();
 
 	// 목적지
-	tmp = document.getElementsByName("goal")[0].value;
-	tmpObj = JSON.parse(tmp.replaceAll("'",'"'));
+	tmp = document.querySelector("#goalHid").value;
+	//tmpObj = JSON.parse(tmp.replaceAll("'",'"'));
+    //tmpObj = JSON.parse(tmp);
+
+    // 아무래도....다른 곳에 쓴 다음에 읽어와야 겠다.
+
+console.log(typeof tmp);
 
 	// 경유지
 	cnt = document.getElementsByName("layover").length;
 	for(i = 0; i < cnt; i++) {
 		layover[i] = document.getElementsByName("layover")[i].value
-		layoverObj[i] = JSON.parse(layover[i].replaceAll("'",'"'));
+		//layoverObj[i] = JSON.parse(layover[i].replaceAll("'",'"'));
 	}
-
+    /*
 	goalObj.name        = tmpObj.name;
 	goalObj.x           = tmpObj.x;
 	goalObj.y           = tmpObj.y;
 	goalObj.vehicleType = getCarRadio();
 	goalObj.viaPoints   = layoverObj;
 
-	//console.log(goalObj);
+    return 
+    */
+	
 
 }
 
@@ -91,34 +98,85 @@ var getParameters = function (paramName) {
 var selectBtn = function (whichBtn, tmpObj) {
 
     let layover = new Array();
-    let goal = new Array();
+    let goal = '';
+    let goalHid = '';
     let tmp = '';
+    let routeList;
+    let cnt = 0;
+    let lst = '';
+    let delBtn;
 
-    layover = document.getElementsByName('layover');
-    goal = document.getElementsByName('goal');
+    
+    goal = document.querySelector('#goal');
+    goalHid = document.querySelector('#goalHid');
+
     tmp = JSON.stringify(tmpObj);
-    console.log(tmp);
+    //console.log(tmp);
     tmp = tmp.replaceAll('"', '');
+
+    cnt = document.getElementsByName("layover").length;
+
+    // 경유지 3개 미만 && 경유지 버튼 눌렀을 때만
+    if ((cnt < 3) && (whichBtn === 'lo')) {
+        var i=0;
+
+        if (document.querySelector("#layDiv1") === null) {
+            i = 1;
+        }else if (document.querySelector("#layDiv2") === null) {
+            i = 2;
+        }else if (document.querySelector("#layDiv3") === null) {
+            i = 3;
+        }
+
+        //console.log(tmpObj);
+
+        routeList = document.getElementById('routeList');
+        lst = "<div class='columns' id='layDiv"+ i +"'>"    +
+                              "    <div class='column is-1'>" +
+                              "        <span class='tag is-info is-large' id='delBtn"+ i +"' onclick='layoverDel("+i+")'>" +
+                              "            경유지" +
+                              "        </span>" +
+                              "    </div>" +
+                              "    <div class='column'>" +
+                              "        <input class='input is-hovered' type='text' placeholder='주소' value='"+tmpObj.name+"'>"+
+                              "        <input type='hidden' placeholder='주소' name='layover' value="+tmpObj+">"+                              
+                              "    </div>" +
+                              "</div>";
+
+        routeList.insertAdjacentHTML('afterbegin', lst);    
+
+        delBtn = document.getElementById('delBtn'+i);  
+        delBtn.onmouseover =  function () {
+            delBtn.classList.replace('is-info', 'is-danger');
+            delBtn.innerHTML = '-삭제-';
+        };  
+
+        delBtn.onmouseout =  function () {
+            delBtn.classList.replace('is-danger', 'is-info');
+            delBtn.innerHTML = '경유지';
+        };        
+    }    
+
+
+    //layover = document.getElementsByName('layover');
+
+    //console.log(layover);
 
 
     if(whichBtn == 'lg') {
-        goal[0].value = tmp;
-    }else if(whichBtn == 'l1') {
-        layover[0].value = tmpObj.name;    
-    }else if(whichBtn == 'l2') {
-        layover[1].value = tmpObj.name;
-    }else if(whichBtn == 'l3') {
-        layover[2].value = tmpObj.name;
+        goal.value = tmpObj.name;
+        goalHid.value = tmpObj;
     }else {
         //
     }
+    
 }
 
 
-var layoverDel = function (event) {
-    var a = event.target;
+var layoverDel = function (i) {
+    var laoverEl = document.getElementById('layDiv'+i);
 
-    console.log(a);
+    laoverEl.remove();
 }
 
 
@@ -320,7 +378,7 @@ function getListItem(index, places) {
     }
                  
     itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-               "  <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "l1" + '"' + ", " + tmp + ")'>경로 추가</a>" +
+               "  <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "lo" + '"' + ", " + tmp + ")'>경로 추가</a>" +
                "  <a class='button is-info is-success' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +
                '</div>';
 
@@ -398,7 +456,7 @@ function displayInfowindow(marker, tmp) {
 
 	/*
     var content = '<div style="padding:5px;z-index:1;">' + tmpObj.name + 
-    			  "  <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "l1" + '"' + ", " + tmp + ")'>경로 추가</a>" +
+    			  "  <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "lo" + '"' + ", " + tmp + ")'>경로 추가</a>" +
                   "  <a class='button is-info is-success' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +
     			  '</div>';
 	*/
@@ -410,7 +468,7 @@ function displayInfowindow(marker, tmp) {
     
     var content = "<div class='bAddr'>" +
                   "    <span class='title'>"+ detailAddr +'</span>' + 
-                  "    <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "l1" + '"' + ", " + tmp + ")'>경로 추가</a> " +
+                  "    <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "lo" + '"' + ", " + tmp + ")'>경로 추가</a> " +
                   "    <a class='button is-info is-success' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +                         
                   "</div>";    			  
 
@@ -483,7 +541,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             
             var content = "<div class='bAddr'>" +
                           "    <span class='title'>"+ detailAddr +'</span>' + 
-                          "    <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "l1" + '"' + ", " + tmp + ")'>경로 추가</a> " +
+                          "    <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "lo" + '"' + ", " + tmp + ")'>경로 추가</a> " +
                           "    <a class='button is-info is-success' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +                         
                           "</div>";
 
@@ -541,7 +599,6 @@ function navi() {
 	// });
 	makeUrl();
 
-	console.log(goalObj);
 
 	Kakao.Navi.start(goalObj);	
 	
