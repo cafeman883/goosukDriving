@@ -5,21 +5,18 @@
 //--------------------------------------------------
 var srno = '#';
 
-let goalObj = {};
-let layoverObj = new Array(3);
+let naviObj = {};
 
 //--------------------------------------------------
-function routeInit() {
-	goalObj = {
+function routeInit() {	
+	naviObj = {
 		name: '파만장',
 	    x: 126.78204526122205,  
 	    y: 37.793763470235774,
 	    coordType: 'wgs84',
-	    vehicleType : 7,
-	    viaPoints: [{name:'-', x:126.78204526122205, y:37.793763470235774}]
+	    vehicleType : getCarRadio()
+	    //viaPoints: [{name:'-', x:126.78204526122205, y:37.793763470235774}]
 	};
-
-	layoverObj = [];  // 배열에 빈 배열을 할당해서 초기화
 };
 
 var getCarRadio = function() {
@@ -31,39 +28,44 @@ var getCarRadio = function() {
 
 var makeUrl = function() {
 	let layover = new Array();
-	let tmp;
+	let goal;
 	let i=0;
 	let cnt=0;
-	let tmpObj = {};
+	let layoverObj = new Array();
+	let goalObj = {};
 
 	routeInit();
 
 	// 목적지
-	tmp = document.querySelector("#goalHid").value;
-	//tmpObj = JSON.parse(tmp.replaceAll("'",'"'));
-    //tmpObj = JSON.parse(tmp);
-
-    // 아무래도....다른 곳에 쓴 다음에 읽어와야 겠다.
-
-console.log(typeof tmp);
+	goal = document.querySelector("#goalHid").value;
+	if (goal.indexOf('name') < 0) {
+		alert('목적지를 선택해주세요.');
+	}
+	goal = goal.replaceAll('&quot;','"');
+	goal = goal.replaceAll('_',' ');
+	goalObj = JSON.parse(goal);
 
 	// 경유지
 	cnt = document.getElementsByName("layover").length;
 	for(i = 0; i < cnt; i++) {
-		layover[i] = document.getElementsByName("layover")[i].value
-		//layoverObj[i] = JSON.parse(layover[i].replaceAll("'",'"'));
+		layover[i] = document.getElementsByName("layover")[i].value;
+		layover[i] = layover[i].replaceAll('&quot;','"');
+		layover[i] = layover[i].replaceAll('_',' ');
+		
+		layoverObj[i] = JSON.parse(layover[i]);
 	}
-    /*
-	goalObj.name        = tmpObj.name;
-	goalObj.x           = tmpObj.x;
-	goalObj.y           = tmpObj.y;
-	goalObj.vehicleType = getCarRadio();
-	goalObj.viaPoints   = layoverObj;
+    
+	naviObj.name        = goalObj.name;
+	naviObj.x           = goalObj.x*1;
+	naviObj.y           = goalObj.y*1;
+	naviObj.vehicleType = getCarRadio();
+	if (cnt > 0) {
+		// 경유가 있을때만
+		naviObj.viaPoints   = layoverObj;
+	}
 
-    return 
-    */
-	
 
+	console.log(naviObj);
 }
 
 var getParameters = function (paramName) { 
@@ -111,8 +113,9 @@ var selectBtn = function (whichBtn, tmpObj) {
     goalHid = document.querySelector('#goalHid');
 
     tmp = JSON.stringify(tmpObj);
-    //console.log(tmp);
-    tmp = tmp.replaceAll('"', '');
+    tmp = tmp.replaceAll('"', '&quot;');
+	tmp = tmp.replaceAll(' ', '_');     
+
 
     cnt = document.getElementsByName("layover").length;
 
@@ -128,8 +131,6 @@ var selectBtn = function (whichBtn, tmpObj) {
             i = 3;
         }
 
-        //console.log(tmpObj);
-
         routeList = document.getElementById('routeList');
         lst = "<div class='columns' id='layDiv"+ i +"'>"    +
                               "    <div class='column is-1'>" +
@@ -139,7 +140,7 @@ var selectBtn = function (whichBtn, tmpObj) {
                               "    </div>" +
                               "    <div class='column'>" +
                               "        <input class='input is-hovered' type='text' placeholder='주소' value='"+tmpObj.name+"'>"+
-                              "        <input type='hidden' placeholder='주소' name='layover' value="+tmpObj+">"+                              
+                              "        <input type='hidden' placeholder='주소' name='layover' value="+tmp+">"+                              
                               "    </div>" +
                               "</div>";
 
@@ -157,15 +158,10 @@ var selectBtn = function (whichBtn, tmpObj) {
         };        
     }    
 
-
-    //layover = document.getElementsByName('layover');
-
-    //console.log(layover);
-
-
+    // 목적지
     if(whichBtn == 'lg') {
         goal.value = tmpObj.name;
-        goalHid.value = tmpObj;
+        goalHid.value = tmp;
     }else {
         //
     }
@@ -342,8 +338,7 @@ function getListItem(index, places) {
 
     var el = document.createElement('li');
 
-    //console.log(places);
-    
+
     let myaddr = '';
     // 구조체를 버튼에 담아서 보내자
     //let latlng = mouseEvent.latLng;
@@ -583,7 +578,6 @@ function displayCenterInfo(result, status) {
                 break;
             }
 
-           // console.log(result[i].region_type);
         }
     }    
 }
@@ -598,9 +592,7 @@ function navi() {
 	//     viaPoints: [{name:'한밭초등학교', x:127.394269, y:36.353841}]
 	// });
 	makeUrl();
-
-
-	Kakao.Navi.start(goalObj);	
+	Kakao.Navi.start(naviObj);	
 	
 };
 
