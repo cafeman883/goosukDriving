@@ -8,92 +8,92 @@ var srno = '#';
 let naviObj = {};
 
 //--------------------------------------------------
-function routeInit() {	
-	naviObj = {
-		name: '파만장',
-	    x: 126.78204526122205,  
-	    y: 37.793763470235774,
-	    coordType: 'wgs84',
-	    vehicleType : getCarRadio()
-	    //viaPoints: [{name:'-', x:126.78204526122205, y:37.793763470235774}]
-	};
+function routeInit() {  
+    naviObj = {
+        name: '파만장',
+        x: 126.78204526122205,  
+        y: 37.793763470235774,
+        coordType: 'wgs84',
+        vehicleType : getCarRadio()
+        //viaPoints: [{name:'-', x:126.78204526122205, y:37.793763470235774}]
+    };
 };
 
 var getCarRadio = function() {
-	var value = document.querySelector('input[name="carRadio"]:checked').value;
+    var value = document.querySelector('input[name="carRadio"]:checked').value;
 
-	return value * 1; // 숫자를 리턴하기 위해
+    return value * 1; // 숫자를 리턴하기 위해
 };
 
 
 var makeUrl = function() {
-	let layover = new Array();
-	let goal;
-	let i=0;
-	let cnt=0;
-	let layoverObj = new Array();
-	let goalObj = {};
+    let layover = new Array();
+    let goal;
+    let i=0;
+    let cnt=0;
+    let layoverObj = new Array();
+    let goalObj = {};
 
-	routeInit();
+    routeInit();
 
-	// 목적지
-	goal = document.querySelector("#goalHid").value;
-	if (goal.indexOf('name') < 0) {
-		alert('목적지를 선택해주세요.');
-	}
-	goal = goal.replaceAll('&quot;','"');
-	goal = goal.replaceAll('_',' ');
-	goalObj = JSON.parse(goal);
+    // 목적지
+    goal = document.querySelector("#goalHid").value;
+    if (goal.indexOf('name') < 0) {
+        alert('목적지를 선택해주세요.');
+    }
+    goal = goal.replaceAll('&quot;','"');
+    goal = goal.replaceAll('_',' ');
+    goalObj = JSON.parse(goal);
 
-	// 경유지
-	cnt = document.getElementsByName("layover").length;
-	for(i = 0; i < cnt; i++) {
-		layover[i] = document.getElementsByName("layover")[i].value;
-		layover[i] = layover[i].replaceAll('&quot;','"');
-		layover[i] = layover[i].replaceAll('_',' ');
-		
-		layoverObj[i] = JSON.parse(layover[i]);
-	}
+    // 경유지
+    cnt = document.getElementsByName("layover").length;
+    for(i = 0; i < cnt; i++) {
+        layover[i] = document.getElementsByName("layover")[i].value;
+        layover[i] = layover[i].replaceAll('&quot;','"');
+        layover[i] = layover[i].replaceAll('_',' ');
+        
+        layoverObj[i] = JSON.parse(layover[i]);
+    }
     
-	naviObj.name        = goalObj.name;
-	naviObj.x           = goalObj.x*1;
-	naviObj.y           = goalObj.y*1;
-	naviObj.vehicleType = getCarRadio();
-	if (cnt > 0) {
-		// 경유가 있을때만
-		naviObj.viaPoints   = layoverObj;
-	}
+    naviObj.name        = goalObj.name;
+    naviObj.x           = goalObj.x*1;
+    naviObj.y           = goalObj.y*1;
+    naviObj.vehicleType = getCarRadio();
+    if (cnt > 0) {
+        // 경유가 있을때만
+        naviObj.viaPoints   = layoverObj;
+    }
 
 
-	console.log(naviObj);
+    console.log(naviObj);
 }
 
 var getParameters = function (paramName) { 
-	// 리턴값을 위한 변수 선언 
-	var returnValue; 
+    // 리턴값을 위한 변수 선언 
+    var returnValue; 
 
-	// 현재 URL 가져오기 
-	var url = location.href; 
+    // 현재 URL 가져오기 
+    var url = location.href; 
 
-	// get 파라미터 값을 가져올 수 있는 ? 를 기점으로 slice 한 후 split 으로 나눔 
-	var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&'); 
-
-
-	// 나누어진 값의 비교를 통해 paramName 으로 요청된 데이터의 값만 return 
-	for (var i = 0; i < parameters.length; i++) { 
-		var varName = parameters[i].split('=')[0]; 
+    // get 파라미터 값을 가져올 수 있는 ? 를 기점으로 slice 한 후 split 으로 나눔 
+    var parameters = (url.slice(url.indexOf('?') + 1, url.length)).split('&'); 
 
 
-		alert(varName + '/' + paramName);
-		
-		
+    // 나누어진 값의 비교를 통해 paramName 으로 요청된 데이터의 값만 return 
+    for (var i = 0; i < parameters.length; i++) { 
+        var varName = parameters[i].split('=')[0]; 
 
-		if (varName.toUpperCase() == paramName.toUpperCase()) { 
-			returnValue = parameters[i].split('=')[1]; 
-			returnValue = returnValue.replaceAll("#", "");
-			return decodeURIComponent(returnValue); 
-		} 
-	} 
+
+        alert(varName + '/' + paramName);
+        
+        
+
+        if (varName.toUpperCase() == paramName.toUpperCase()) { 
+            returnValue = parameters[i].split('=')[1]; 
+            returnValue = returnValue.replaceAll("#", "");
+            return decodeURIComponent(returnValue); 
+        } 
+    } 
 };
 
 
@@ -114,7 +114,7 @@ var selectBtn = function (whichBtn, tmpObj) {
 
     tmp = JSON.stringify(tmpObj);
     tmp = tmp.replaceAll('"', '&quot;');
-	tmp = tmp.replaceAll(' ', '_');     
+    tmp = tmp.replaceAll(' ', '_');     
 
 
     cnt = document.getElementsByName("layover").length;
@@ -282,26 +282,26 @@ function displayPlaces(places) {
         // mouseout 했을 때는 인포윈도우를 닫습니다
         
 
-	    // 구조체를 버튼에 담아서 보내자
-	    //let latlng = mouseEvent.latLng;
-	    let clickX = places[i].x;
-	    let clickY = places[i].y;            
+        // 구조체를 버튼에 담아서 보내자
+        //let latlng = mouseEvent.latLng;
+        let clickX = places[i].x;
+        let clickY = places[i].y;            
 
-	    let tmp = '';            
-	    let tmpObj = {};
+        let tmp = '';            
+        let tmpObj = {};
 
-	    tmpObj = {
-	        name: places[i].address_name,
-	        x: places[i].x , 	
-	        y: places[i].y ,  
-	        coordType: 'wgs84',
-	        vehicleType: getCarRadio()
-	    };
-	    tmp = JSON.stringify(tmpObj);
+        tmpObj = {
+            name: places[i].address_name,
+            x: places[i].x ,    
+            y: places[i].y ,  
+            coordType: 'wgs84',
+            vehicleType: getCarRadio()
+        };
+        tmp = JSON.stringify(tmpObj);
 
         (function(marker, tmp) {
         //(function(marker, title) {
-        	
+            
 
 
             kakao.maps.event.addListener(marker, 'mouseover', function() {
@@ -320,7 +320,7 @@ function displayPlaces(places) {
                 //infowindow.close();
             };
         //})(marker, places[i].place_name);
-    	})(marker, tmp);
+        })(marker, tmp);
 
         fragment.appendChild(itemEl);
     }
@@ -352,7 +352,7 @@ function getListItem(index, places) {
     myaddr = places.address_name;
     tmpObj = {
         name: places.address_name,
-        x: places.x , 	
+        x: places.x ,   
         y: places.y ,  
         coordType: 'wgs84',
         vehicleType: getCarRadio()
@@ -447,14 +447,14 @@ function displayPagination(pagination) {
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, tmp) {
-	var tmpObj = JSON.parse(tmp);
+    var tmpObj = JSON.parse(tmp);
 
-	/*
+    /*
     var content = '<div style="padding:5px;z-index:1;">' + tmpObj.name + 
-    			  "  <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "lo" + '"' + ", " + tmp + ")'>경로 추가</a>" +
+                  "  <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "lo" + '"' + ", " + tmp + ")'>경로 추가</a>" +
                   "  <a class='button is-info is-success' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +
-    			  '</div>';
-	*/
+                  '</div>';
+    */
 
     var detailAddr = '<div class="control">' +  
                      '<textarea id="addr" class="textarea has-fixed-size" rows="3">'+tmpObj.name+'</textarea>'+
@@ -465,7 +465,7 @@ function displayInfowindow(marker, tmp) {
                   "    <span class='title'>"+ detailAddr +'</span>' + 
                   "    <a class='button is-info is-info' href='#' onclick='selectBtn(" + '"' + "lo" + '"' + ", " + tmp + ")'>경로 추가</a> " +
                   "    <a class='button is-info is-success' href='#' onclick='selectBtn(" + '"' + "lg" + '"' + ", " + tmp + ")'>목적지</a>" +                         
-                  "</div>";    			  
+                  "</div>";               
 
     infowindow.setContent(content);
     infowindow.open(map, marker);
@@ -519,7 +519,7 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             myaddr = result[0].address.address_name;
             tmpObj = {
                 name: myaddr,
-                x: clickX , 	
+                x: clickX ,     
                 y: clickY ,  
                 coordType: 'wgs84',
                 vehicleType: getCarRadio()
@@ -584,20 +584,20 @@ function displayCenterInfo(result, status) {
 
 
 function navi() {
-	// Kakao.Navi.start({
-	// 	name: '대전광역시 서구 둔산2동 1306',
-	//     x: 127.381874,  
-	//     y: 36.355238,
-	//     coordType: 'wgs84',
-	//     viaPoints: [{name:'한밭초등학교', x:127.394269, y:36.353841}]
-	// });
-	makeUrl();
-	Kakao.Navi.start(naviObj);	
-	
+    // Kakao.Navi.start({
+    //  name: '대전광역시 서구 둔산2동 1306',
+    //     x: 127.381874,  
+    //     y: 36.355238,
+    //     coordType: 'wgs84',
+    //     viaPoints: [{name:'한밭초등학교', x:127.394269, y:36.353841}]
+    // });
+    makeUrl();
+    Kakao.Navi.start(naviObj);  
+    
 };
 
 
 
 
 
-			
+            
