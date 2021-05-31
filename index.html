@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="box">
+<div class="box is-mobile">
 	<div class="container is-fullhd">
 		<div class="map_wrap">
 		    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
@@ -35,7 +35,7 @@
 </div>
 
 
-<div class="box">
+<div class="box is-mobile">
 	<div class="container is-fullhd">
 		<div class="buttons">
 			<a class="button is-info is-light" id="navi" href="#" onclick="navi();">
@@ -64,7 +64,7 @@
 	
 	</div>
 </div>	
-<div class="box">		
+<div class="box is-mobile">		
 	<div class="container is-fullhd" id="routeList">
 		<!-- 
 		<div class="columns" >
@@ -81,17 +81,22 @@
 		<div class="columns">
 	    	<div class="column is-1">	        		
 			    <span class="tag is-success is-large">
+			    	●			    		 
+			    </span>					        		 
+	    	</div>			
+	    	<div class="column is-1">	        		
+			    <span class="tag is-success is-large">
 			    	목적지			    		 
 			    </span>					        		 
 	    	</div>
 	    	<div class="column">
-	    		<input class="input is-focused" id="goal" type="text" placeholder="목적지 주소" value="">
+	    		<input class="input is-danger" id="goal" type="text" placeholder="목적지 주소" value="" disabled>
 				<input type="hidden" id="goalHid" value="">	    		
 	    	</div>
 		</div>	
 	</div>
 </div>
-<section class="section">
+<section class="section is-mobile">
 	<div class="container" id="cardContainer">
 		<div class="card">
 			<div class="card-image">
@@ -203,6 +208,20 @@
 		</div>
 	</div>
 </section>
+
+
+<div class='parent'>
+  <span id='draggableSpan'
+    draggable='true'
+    ondragstart='onDragStart(event)'>
+      draggable
+  </span>
+  <span
+    ondragover='onDragOver(event)'
+    ondrop='onDrop(event)'>
+      dropzone
+  </span>
+</div>
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=services"></script>

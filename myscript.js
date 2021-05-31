@@ -134,12 +134,17 @@ var selectBtn = function (whichBtn, tmpObj) {
         routeList = document.getElementById('routeList');
         lst = "<div class='columns' id='layDiv"+ i +"'>"    +
                               "    <div class='column is-1'>" +
+                              "        <span class='tag is-info is-large is-right' onclick=''>" +
+                              "            ▼" +
+                              "        </span>" +   
+                              "    </div>" +                                       
+                              "    <div class='column is-1'>" +                          
                               "        <span class='tag is-info is-large' id='delBtn"+ i +"' onclick='layoverDel("+i+")'>" +
                               "            경유지" +
                               "        </span>" +
                               "    </div>" +
                               "    <div class='column'>" +
-                              "        <input class='input is-hovered' type='text' placeholder='주소' value='"+tmpObj.name+"'>"+
+                              "        <input class='input is-info' type='text' placeholder='주소' value='"+tmpObj.name+"' disabled>"+
                               "        <input type='hidden' placeholder='주소' name='layover' value="+tmp+">"+                              
                               "    </div>" +
                               "</div>";
@@ -601,3 +606,21 @@ function navi() {
 
 
             
+function onDragStart(event) {
+  event.dataTransfer.setData('text/plan', event.target.id);
+  event.currentTarget.style.backgroundColor = 'yellow';
+}
+
+function onDragOver(event) {
+  event.preventDefault();
+}
+
+function onDrop(event) {
+  const id = event.dataTransfer.getData('text');
+  const elDraggable = document.getElementById(id);
+  const elDropzone = event.target;
+
+  elDropzone.appendChild(elDraggable);
+
+  event.dataTransfer.clearData();
+}
