@@ -56,6 +56,8 @@
 		    	<input type="radio" name="carRadio" value="1">
 		    	승용차
 		  	</label>
+
+
 		  	<script id="_wau8qq">
 				var _wau = _wau || []; 
 				_wau.push(["dynamic", "z3m10ylb12", "8qq", "c4302bffffff", "large"]);
@@ -65,7 +67,7 @@
 	</div>
 </div>	
 <div class="box is-mobile">		
-	<div class="container is-fullhd" id="routeList">
+	<div class="container is-fullhd" id="routeList" ondragover="onDragOver(event)" ondrop="onDrop(event)">
 		<!-- 
 		<div class="columns" >
 			<div class="column is-1">
@@ -78,6 +80,8 @@
     		</div>
 		</div>
 		 -->
+	</div>
+	<div class="container is-fullhd">
 		<div class="columns">
 	    	<div class="column is-1">	        		
 			    <span class="tag is-success is-large">
@@ -222,6 +226,11 @@
       dropzone
   </span>
 </div>
+
+
+
+
+
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e43dc8045745f2062fbc14ca37ae1297&libraries=services"></script>

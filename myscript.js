@@ -132,9 +132,9 @@ var selectBtn = function (whichBtn, tmpObj) {
         }
 
         routeList = document.getElementById('routeList');
-        lst = "<div class='columns' id='layDiv"+ i +"'>"    +
+        lst = "<div class='columns' id='layDiv"+ i +"' name='layDiv' draggable='true' ondragstart='onDragStart(event)'>"    +
                               "    <div class='column is-1'>" +
-                              "        <span class='tag is-info is-large is-right' onclick=''>" +
+                              "        <span class='tag is-info is-large is-right' onclick='moveLay(event)'>" +
                               "            ▼" +
                               "        </span>" +   
                               "    </div>" +                                       
@@ -173,6 +173,48 @@ var selectBtn = function (whichBtn, tmpObj) {
     
 }
 
+
+
+
+var moveLay = function (event) {
+    //console.log(event.target.parentElement.parentElement.indexOf(document.getElementsByname('layDiv')));
+    var layDivList = document.getElementsByName('layDiv');
+    var tmpList = [];
+    var eventDiv = event.target.parentElement.parentElement;    
+    var routeList = document.getElementById('routeList');
+    var cnt = 0;
+    var i, j = 0;
+
+    //routeList.insertAdjacentHTML('afterbegin', lst);
+
+
+    cnt = layDivList.length;
+    for (i = 0; i < 3; i++) {
+        if (layDivList[i] === eventDiv) {
+            j = i;
+        }
+    }
+
+    if (j != cnt) {
+        if (j == 0) {
+            tmpList[0] = layDivList[1];
+            tmpList[1] = layDivList[0];
+            tmpList[2] = layDivList[2];
+        }else if (j == 1) {
+            tmpList[0] = layDivList[0];
+            tmpList[1] = layDivList[2];
+            tmpList[2] = layDivList[1];           
+        }
+    } else {
+        tmpList[0] = layDivList[3];
+        tmpList[1] = layDivList[0];
+        tmpList[2] = layDivList[1];
+    }
+
+    routeList.removeAllChildNods();
+    //routeList.appendChild(tmpList);
+
+}
 
 var layoverDel = function (i) {
     var laoverEl = document.getElementById('layDiv'+i);
@@ -603,12 +645,14 @@ function navi() {
 
 
 
-
+//----------------------Drag & Drop--------------------------------
 
             
 function onDragStart(event) {
   event.dataTransfer.setData('text/plan', event.target.id);
   event.currentTarget.style.backgroundColor = 'yellow';
+
+  //console.log(event.target.id);
 }
 
 function onDragOver(event) {
@@ -616,11 +660,15 @@ function onDragOver(event) {
 }
 
 function onDrop(event) {
-  const id = event.dataTransfer.getData('text');
+  const id = event.dataTransfer.getData('text/plan');
   const elDraggable = document.getElementById(id);
-  const elDropzone = event.target;
+  const elDropzone = document.getElementById('routeList');
 
-  elDropzone.appendChild(elDraggable);
+  console.log('test :' + id);
+  //console.log(elDraggable);
+  //console.log(event.currentTarget.id);
+
+  //elDropzone.insertBefore(elDraggable);
 
   event.dataTransfer.clearData();
 }
