@@ -132,7 +132,7 @@ var selectBtn = function (whichBtn, tmpObj) {
         }
 
         routeList = document.getElementById('routeList');
-        lst = "<div class='columns' id='layDiv"+ i +"' name='layDiv' draggable='true' ondragstart='onDragStart(event)'>"    +
+        lst = "<div class='columns' id='layDiv"+ i +"' name='layDiv'>" +
                               "    <div class='column is-1'>" +
                               "        <span class='tag is-info is-large is-right' onclick='moveLay(event)'>" +
                               "            ▼" +
@@ -177,17 +177,23 @@ var selectBtn = function (whichBtn, tmpObj) {
 
 
 var moveLay = function (event) {
-    //console.log(event.target.parentElement.parentElement.indexOf(document.getElementsByname('layDiv')));
-    var layDivList = document.getElementsByName('layDiv');
+    var layDivList = [];
     var tmpList = [];
     var eventDiv = event.target.parentElement.parentElement;    
     var routeList = document.getElementById('routeList');
     var cnt = 0;
     var i, j = 0;
 
-    //routeList.insertAdjacentHTML('afterbegin', lst);
+    layDivList = document.getElementsByName('layDiv');
+    layDivList = Object.values(layDivList);
+    console.log(Array.isArray(layDivList));
+    console.log(layDivList);
+
+    console.log(layDivList.pop());
+    console.log(layDivList);
 
 
+    /*
     cnt = layDivList.length;
     for (i = 0; i < 3; i++) {
         if (layDivList[i] === eventDiv) {
@@ -196,7 +202,7 @@ var moveLay = function (event) {
     }
 
     if (j != cnt) {
-        if (j == 0) {
+        if (j == 0) {setE
             tmpList[0] = layDivList[1];
             tmpList[1] = layDivList[0];
             tmpList[2] = layDivList[2];
@@ -210,9 +216,12 @@ var moveLay = function (event) {
         tmpList[1] = layDivList[0];
         tmpList[2] = layDivList[1];
     }
-
-    routeList.removeAllChildNods();
-    //routeList.appendChild(tmpList);
+    */
+    var test = layDivList[0].outerHTML;
+    routeList.innerHTML = test;
+    console.log(test);
+    //routeList.insertAdjacentHTML('afterbegin', typeof layDivList[0].toString());
+    //routeList.insertAdjacentHTML('afterend', test);
 
 }
 
@@ -643,32 +652,3 @@ function navi() {
     
 };
 
-
-
-//----------------------Drag & Drop--------------------------------
-
-            
-function onDragStart(event) {
-  event.dataTransfer.setData('text/plan', event.target.id);
-  event.currentTarget.style.backgroundColor = 'yellow';
-
-  //console.log(event.target.id);
-}
-
-function onDragOver(event) {
-  event.preventDefault();
-}
-
-function onDrop(event) {
-  const id = event.dataTransfer.getData('text/plan');
-  const elDraggable = document.getElementById(id);
-  const elDropzone = document.getElementById('routeList');
-
-  console.log('test :' + id);
-  //console.log(elDraggable);
-  //console.log(event.currentTarget.id);
-
-  //elDropzone.insertBefore(elDraggable);
-
-  event.dataTransfer.clearData();
-}
