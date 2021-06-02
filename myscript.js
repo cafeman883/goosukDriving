@@ -63,9 +63,6 @@ var makeUrl = function() {
         // 경유가 있을때만
         naviObj.viaPoints   = layoverObj;
     }
-
-
-    console.log(naviObj);
 }
 
 var getParameters = function (paramName) { 
@@ -133,21 +130,21 @@ var selectBtn = function (whichBtn, tmpObj) {
 
         routeList = document.getElementById('routeList');
         lst = "<div class='columns' id='layDiv"+ i +"' name='layDiv'>" +
-                              "    <div class='column is-1'>" +
-                              "        <span class='tag is-info is-large is-right' onclick='moveLay(event)'>" +
-                              "            ▼" +
-                              "        </span>" +   
-                              "    </div>" +                                       
-                              "    <div class='column is-1'>" +                          
-                              "        <span class='tag is-info is-large' id='delBtn"+ i +"' onclick='layoverDel("+i+")'>" +
-                              "            경유지" +
-                              "        </span>" +
-                              "    </div>" +
-                              "    <div class='column'>" +
-                              "        <input class='input is-info' type='text' placeholder='주소' value='"+tmpObj.name+"' disabled>"+
-                              "        <input type='hidden' placeholder='주소' name='layover' value="+tmp+">"+                              
-                              "    </div>" +
-                              "</div>";
+              "    <div class='column is-1'>" +
+              "        <span class='tag is-info is-large is-right' onclick='moveLay(event)'>" +
+              "            ▼" +
+              "        </span>" +   
+              "    </div>" +                                       
+              "    <div class='column is-1'>" +                          
+              "        <span class='tag is-info is-large' id='delBtn"+ i +"' onclick='layoverDel("+i+")'>" +
+              "            경유지" +
+              "        </span>" +
+              "    </div>" +
+              "    <div class='column'>" +
+              "        <input class='input is-info' type='text' placeholder='주소' value='"+tmpObj.name+"' disabled>"+
+              "        <input type='hidden' placeholder='주소' name='layover' value="+tmp+">"+                              
+              "    </div>" +
+              "</div>";
 
         routeList.insertAdjacentHTML('afterbegin', lst);    
 
@@ -183,26 +180,24 @@ var moveLay = function (event) {
     var routeList = document.getElementById('routeList');
     var cnt = 0;
     var i, j = 0;
+    var str='';
+    var delBtn = [];
+
+
 
     layDivList = document.getElementsByName('layDiv');
     layDivList = Object.values(layDivList);
-    console.log(Array.isArray(layDivList));
-    console.log(layDivList);
-
-    console.log(layDivList.pop());
-    console.log(layDivList);
-
-
-    /*
+    
     cnt = layDivList.length;
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < cnt; i++) {
         if (layDivList[i] === eventDiv) {
             j = i;
         }
     }
 
-    if (j != cnt) {
-        if (j == 0) {setE
+    
+    if (j != cnt-1) {
+        if (j == 0) {
             tmpList[0] = layDivList[1];
             tmpList[1] = layDivList[0];
             tmpList[2] = layDivList[2];
@@ -211,18 +206,127 @@ var moveLay = function (event) {
             tmpList[1] = layDivList[2];
             tmpList[2] = layDivList[1];           
         }
-    } else {
-        tmpList[0] = layDivList[3];
+    }else{
+        tmpList[0] = layDivList[2];
         tmpList[1] = layDivList[0];
-        tmpList[2] = layDivList[1];
+        tmpList[2] = layDivList[1];        
     }
-    */
-    var test = layDivList[0].outerHTML;
-    routeList.innerHTML = test;
-    console.log(test);
-    //routeList.insertAdjacentHTML('afterbegin', typeof layDivList[0].toString());
-    //routeList.insertAdjacentHTML('afterend', test);
 
+
+    cnt = tmpList.length;
+    for (i = 0; i < cnt; i++) {
+        str += tmpList[i].outerHTML;
+    }
+
+    routeList.innerHTML = str;
+
+    goDelEvnt(cnt);
+
+/*
+
+            document.getElementById('delBtn1').onmouseover =  function () {
+                document.getElementById('delBtn1').classList.replace('is-info', 'is-danger');
+                document.getElementById('delBtn1').innerHTML = '-삭제-';
+                console.log(i + 'over');
+            };  
+
+            document.getElementById('delBtn1').onmouseout =  function () {
+                document.getElementById('delBtn1').classList.replace('is-danger', 'is-info');
+                document.getElementById('delBtn1').innerHTML = '경유지';
+                console.log(i + 'out');
+            }; 
+
+            document.getElementById('delBtn2').onmouseover =  function () {
+                document.getElementById('delBtn2').classList.replace('is-info', 'is-danger');
+                document.getElementById('delBtn2').innerHTML = '-삭제-';
+                console.log(i + 'over');
+            };  
+
+            document.getElementById('delBtn2').onmouseout =  function () {
+                document.getElementById('delBtn2').classList.replace('is-danger', 'is-info');
+                document.getElementById('delBtn2').innerHTML = '경유지';
+                console.log(i + 'out');
+            }; 
+
+            document.getElementById('delBtn3').onmouseover =  function () {
+                document.getElementById('delBtn3').classList.replace('is-info', 'is-danger');
+                document.getElementById('delBtn3').innerHTML = '-삭제-';
+                console.log(i + 'over');
+            };  
+
+            document.getElementById('delBtn3').onmouseout =  function () {
+                document.getElementById('delBtn3').classList.replace('is-danger', 'is-info');
+                document.getElementById('delBtn3').innerHTML = '경유지';
+                console.log(i + 'out');
+            }; 
+
+*/            
+
+}
+
+var goDelEvnt = function (cnt) {
+    var i = 0;
+    var delBtn1, delBtn2, delBtn3;
+
+
+    for (i = 0; i < cnt; i++) { 
+        delBtn = document.getElementById('delBtn'+(i+1));
+
+        console.log(delBtn.id);
+
+        if (delBtn !== null) {      
+            delBtn.onmouseover =  function () {
+                delBtn.classList.replace('is-info', 'is-danger');
+                delBtn.innerHTML = '-삭제-';
+                console.log(i + 'over');
+            };  
+
+            delBtn.onmouseout =  function () {
+                delBtn.classList.replace('is-danger', 'is-info');
+                delBtn.innerHTML = '경유지';
+            }; 
+        }
+    }   
+
+    delBtn1 = document.getElementById('delBtn1');
+    delBtn2 = document.getElementById('delBtn2');
+    delBtn3 = document.getElementById('delBtn3');
+
+    if (delBtn1 !== null) {
+            delBtn1.onmouseover =  function () {
+                delBtn1.classList.replace('is-info', 'is-danger');
+                delBtn1.innerHTML = '-삭제-';
+            };  
+
+            delBtn1.onmouseout =  function () {
+                delBtn1.classList.replace('is-danger', 'is-info');
+                delBtn1.innerHTML = '경유지';
+            }; 
+    }
+    
+    if (delBtn2 !== null) {
+            delBtn2.onmouseover =  function () {
+                delBtn2.classList.replace('is-info', 'is-danger');
+                delBtn2.innerHTML = '-삭제-';
+            };  
+
+            delBtn2.onmouseout =  function () {
+                delBtn2.classList.replace('is-danger', 'is-info');
+                delBtn2.innerHTML = '경유지';
+            }; 
+    }
+
+    if (delBtn3 !== null) {
+        delBtn3.onmouseover =  function () {
+            delBtn3.classList.replace('is-info', 'is-danger');
+            delBtn3.innerHTML = '-삭제-';
+        };  
+
+        delBtn3.onmouseout =  function () {
+            delBtn3.classList.replace('is-danger', 'is-info');
+            delBtn3.innerHTML = '경유지';
+        };     
+    }
 }
 
 var layoverDel = function (i) {
@@ -423,7 +527,7 @@ function getListItem(index, places) {
 
     if (places.road_address_name) {
         itemStr += '    <span>' + places.road_address_name + '</span>' +
-                    '   <span class="jibun gray">' +  places.address_name  + '</span>';
+                   '    <span class="jibun gray">' +  places.address_name  + '</span>';
     } else {
         itemStr += '    <span>' +  places.address_name  + '</span>'; 
     }
