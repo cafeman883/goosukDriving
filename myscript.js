@@ -129,18 +129,18 @@ var selectBtn = function (whichBtn, tmpObj) {
         }
 
         routeList = document.getElementById('routeList');
-        lst = "<div class='columns' id='layDiv"+ i +"' name='layDiv'>" +
-              "    <div class='column is-1'>" +
+        lst = "<div class='columns is-mobile' id='layDiv"+ i +"' name='layDiv'>" +
+              "    <div class='column is-2'>" +
               "        <span class='tag is-info is-large is-right' onclick='moveLay(event)'>" +
               "            ▼" +
               "        </span>" +   
               "    </div>" +                                       
-              "    <div class='column is-1'>" +                          
+              "    <div class='column is-1 is-hidden-mobile'>" +                          
               "        <span class='tag is-info is-large' id='delBtn"+ i +"' onclick='layoverDel("+i+")'>" +
               "            경유지" +
               "        </span>" +
               "    </div>" +
-              "    <div class='column'>" +
+              "    <div class='column is-10'>" +
               "        <input class='input is-info' type='text' placeholder='주소' value='"+tmpObj.name+"' disabled>"+
               "        <input type='hidden' placeholder='주소' name='layover' value="+tmp+">"+                              
               "    </div>" +
@@ -158,7 +158,12 @@ var selectBtn = function (whichBtn, tmpObj) {
             delBtn.classList.replace('is-danger', 'is-info');
             delBtn.innerHTML = '경유지';
         };        
-    }    
+    } 
+
+    var columns = '';
+    columns = document.getElementsByName('layDiv');
+    columns.classList.replace('columns', 'columns is-mobile'); // is-desktop
+
 
     // 목적지
     if(whichBtn == 'lg') {
