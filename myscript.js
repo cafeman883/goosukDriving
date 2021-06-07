@@ -3,6 +3,34 @@
 
 
 //--------------------------------------------------
+
+window.onload = function () {
+
+    var bikeBtn = document.querySelector('#bikeBtn');
+    var carBtn = document.querySelector('#carBtn');
+    var bikeRadi = document.querySelector('#bikeRadi');
+    var carRadi = document.querySelector('#carRadi');    
+
+    bikeBtn.onclick = function () {
+        bikeBtn.className = "notification is-danger";
+        carBtn.className = "notification is-light";
+        bikeRadi.checked = true;
+        carRadi.checked = false;
+    }
+
+    carBtn.onclick = function () {
+        carBtn.className = "notification is-danger";
+        bikeBtn.className = "notification is-light";
+        bikeRadi.checked = false;
+        carRadi.checked = true;        
+    }
+
+
+
+
+
+}
+
 var srno = '#';
 
 let naviObj = {};
@@ -130,12 +158,12 @@ var selectBtn = function (whichBtn, tmpObj) {
 
         routeList = document.getElementById('routeList');
         lst = "<div class='columns is-mobile' id='layDiv"+ i +"' name='layDiv'>" +
-              "    <div class='column is-2'>" +
-              "        <span class='tag is-info is-large is-right' onclick='moveLay(event)'>" +
+              "    <div class='column is-1' name='spanDiv'>" +
+              "        <span class='tag is-info is-large' name='moveSpan' onclick='moveLay(event)'>" +
               "            ▼" +
               "        </span>" +   
               "    </div>" +                                       
-              "    <div class='column is-1 is-hidden-mobile'>" +                          
+              "    <div class='column is-1 is-hidden-mobile' name='spanDiv2'>" +                          
               "        <span class='tag is-info is-large' id='delBtn"+ i +"' onclick='layoverDel("+i+")'>" +
               "            경유지" +
               "        </span>" +
@@ -160,10 +188,18 @@ var selectBtn = function (whichBtn, tmpObj) {
         };        
     } 
 
-    var columns = '';
-    columns = document.getElementsByName('layDiv');
-    columns.classList.replace('columns', 'columns is-mobile'); // is-desktop
 
+    var moveSpan = [];    
+    var spanDiv = [];
+    var spanDiv2 = [];
+
+    spanDiv = document.getElementsByName('spanDiv');
+    spanDiv2 = document.getElementsByName('spanDiv2');
+    moveSpan = document.getElementsByName('moveSpan');    
+
+    spanDiv[0].style.cssText = "padding-right: 0px;";
+    spanDiv2[0].style.cssText = "padding-left: 0px;";
+    moveSpan[0].style.cssText = "width: 50px; float: left;";    
 
     // 목적지
     if(whichBtn == 'lg') {
@@ -174,8 +210,6 @@ var selectBtn = function (whichBtn, tmpObj) {
     }
     
 }
-
-
 
 
 var moveLay = function (event) {
